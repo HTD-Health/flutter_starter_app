@@ -1,17 +1,22 @@
 # flutter_starter_app
 
-- [flutter_starter_app](#eprufhealthapp)
+- [flutter_starter_app](#flutterstarterapp)
   - [1. Basic Commands](#1-basic-commands)
   - [2. How to BloC with Provider](#2-how-to-bloc-with-provider)
-    - [1. Create BloC class](#1-create-bloc-class)
-    - [2. Provide BloC object down the tree:](#2-provide-bloc-object-down-the-tree)
-    - [3. Get access to BloC object from widgets placed down the tree](#3-get-access-to-bloc-object-from-widgets-placed-down-the-tree)
-    - [4. **That's all**. Use methods on on your BloC objects and all will be updated!](#4-thats-all-use-methods-on-on-your-bloc-objects-and-all-will-be-updated)
+      - [2.1. Create BloC class](#21-create-bloc-class)
+      - [2.2. Provide BloC object down the tree:](#22-provide-bloc-object-down-the-tree)
+      - [2.3. Get access to BloC object from widgets placed down the tree](#23-get-access-to-bloc-object-from-widgets-placed-down-the-tree)
+      - [2.4. **That's all**. Use methods on on your BloC objects and all will be updated!](#24-thats-all-use-methods-on-on-your-bloc-objects-and-all-will-be-updated)
   - [3. Project analysis options](#3-project-analysis-options)
   - [4. Json serialization](#4-json-serialization)
-    - [1. To create JSON serialize create model file like:](#1-to-create-json-serialize-create-model-file-like)
-    - [2. Run `flutter pub run build_runner build`](#2-run-flutter-pub-run-buildrunner-build)
-    - [3. Thats all. To parse json:](#3-thats-all-to-parse-json)
+      - [4.1. To create JSON serialize create model file like:](#41-to-create-json-serialize-create-model-file-like)
+      - [4.2. Run `flutter pub run build_runner build`](#42-run-flutter-pub-run-buildrunner-build)
+      - [4.3. Thats all. To parse json:](#43-thats-all-to-parse-json)
+  - [5. Api](#5-api)
+      - [5.1 First create your Api object class by extending `BaseApi` class](#51-first-create-your-api-object-class-by-extending-baseapi-class)
+      - [5.2 Provide your Api instance down the widget tree](#52-provide-your-api-instance-down-the-widget-tree)
+      - [5.3.1 To make an api call from your widget tree](#531-to-make-an-api-call-from-your-widget-tree)
+      - [Or simply make use of `Query` widget](#or-simply-make-use-of-query-widget)
 
 ## 1. Basic Commands
 - `flutter analyze` - linting
@@ -24,7 +29,7 @@
 
 ## 2. How to BloC with Provider
 
-### 1. Create BloC class
+#### 2.1. Create BloC class
 ```dart
 class ExampleBloc extends ChangeNotifier {
   List<String> _texts = [];
@@ -43,7 +48,7 @@ class ExampleBloc extends ChangeNotifier {
 ```
    - It's important to call `notifyListeners` method after every action. This will notify every listeners that listens to our `ChangeNotifier` object which extends our BloC class.
 
-### 2. Provide BloC object down the tree:
+#### 2.2. Provide BloC object down the tree:
 ```dart
 ChangeNotifierProvider<ExampleBloc>(
   child: MaterialApp(
@@ -55,7 +60,7 @@ ChangeNotifierProvider<ExampleBloc>(
 );
 ```
 
-### 3. Get access to BloC object from widgets placed down the tree
+#### 2.3. Get access to BloC object from widgets placed down the tree
 ```dart
 class HomeScreen extends StatefulWidget {
   @override
@@ -114,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 ```
-### 4. **That's all**. Use methods on on your BloC objects and all will be updated!
+#### 2.4. **That's all**. Use methods on on your BloC objects and all will be updated!
 
 
 ## 3. Project analysis options
@@ -152,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 ## 4. Json serialization
 
-### 1. To create JSON serialize create model file like:
+#### 4.1. To create JSON serialize create model file like:
 ```dart
 import 'package:json_annotation/json_annotation.dart';
 
@@ -189,9 +194,130 @@ class ExamplePhotoModel {
 }
 ```
 
-### 2. Run `flutter pub run build_runner build`
+#### 4.2. Run `flutter pub run build_runner build`
 
-### 3. Thats all. To parse json:
+#### 4.3. Thats all. To parse json:
 ```dart
 ExamplePhotoModel photo = ExamplePhotoModel.fromJson(decodedJson);
+```
+
+## 5. Api
+This starter app uses a simple wrapper around dart `http` client library that adds the
+possibility to handle middlewares by `ApiLink`s (strongly inspired by apollo graphQL
+client links) and use `Query` widget to make API calls right from the widgets tree.
+
+#### 5.1 First create your Api object class by extending `BaseApi` class
+```dart
+class Api extends ApiBase {
+
+  Api({
+    /// BaseApi requires yoy to provide [Uri] object that points to your api 
+    @required Uri uri,
+
+    /// Enable link support by passing [ApiLink]
+    /// object to super constructor (optional)
+    ApiLink link,
+
+    /// Default headers for your application (optional)
+    Map<String, String> defaultHeaders,
+
+    /// Call super constructor with provided data
+  }) : super(uri: uri, defaultHeaders: defaultHeaders, link: link) {
+    _photos = _PhotoQueries(this);
+  }
+
+  /// Implement methods that will call your api
+  Future<ExamplePhotoModel> getRandomPhoto() async {
+
+    /// It's important to call your api with [call] method as it triggers
+    /// [ApiRequest] build and links invokations
+    final response = await api.call(
+      endpoint: "/id/${Random().nextInt(50)}/info",
+      method: HttpMethod.GET,
+    );
+    return ExamplePhotoModel.fromJson(json.decode(response.body));
+  }
+}
+
+```
+
+#### 5.2 Provide your Api instance down the widget tree
+```dart
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    /// To provide your api use [RestuiProvider] widget or
+    /// [Provider] from [provider] package
+    /// in place of `<Api>` put your api class name / type
+    return RestuiProvider<Api>(
+        create: (_) => Api(
+          /// Pass base uri adress thats points to your api
+          uri: Uri.parse("https://picsum.photos"),
+          /// Add links if needed
+          /// For more invormation look at [HeadersMapperLink] and [DebugLink]
+          /// links descriptions
+          link: HeadersMapperLink(["uid", "client", "access-token"])
+              .chain(DebugLink(printResponseBody: true)),
+        ),
+        child: MaterialApp(
+          title: 'flutter_starter_app',
+          onGenerateRoute: _generateRoute,
+        ),
+      );
+  }
+}
+```
+
+#### 5.3.1 To make an api call from your widget tree
+```dart
+class _ApiExampleScreenState extends State<ApiExampleScreen> {
+  ExamplePhotoModel _randomPhoto;
+
+  @override
+  void initState() {
+    _requestRandomPhoto();
+    super.initState();
+  }
+
+  Future<ExamplePhotoModel> _requestRandomPhoto() async {
+    final api = Provider.of<Api>(context);
+    final photo = await api.getRandomPhoto();
+    setState({
+      _randomPhoto = photo;
+    })
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool hasPhotot = _randomPhoto != null;
+    return Center(
+      /// Implementation ...
+    );
+  }
+}
+```
+#### Or simply make use of `Query` widget
+```dart
+class _ApiExampleScreenState extends State<ApiExampleScreen> {
+ 
+  @override
+  Widget build(BuildContext context) {
+    bool hasPhotot = _randomPhoto != null;
+    /// Create [Query] widget and declare types for its
+    /// `<TypeToBeReturnedFromCallBuilder, YouApiType>`
+    return Query<ExamplePhotoModel, Api>(
+      /// [callBuilder] is responsible for getting data.
+      /// You can also combine it with your BloC object
+      /// to prevent api calls when data exists.
+      callBuilder: (Api api) => api.photos.getRandom(),
+      /// [value] will be [null] untill first value are returned from [callBuilder].
+      /// [loading] indicates whether [callBuilder] method is ongoing
+      builder: (BuildContext context, bool loading, ExamplePhotoModel value) {
+        return Center(
+          /// Implementation ...
+        );
+      },
+    );
+  }
+}
 ```
