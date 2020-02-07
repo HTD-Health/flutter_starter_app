@@ -37,7 +37,8 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
                 const SizedBox(height: 15),
                 Query<ExamplePhotoModel, Api>(
                   key: _queryKey,
-                  callBuilder: (Api api) => api.photos.getRandom(),
+                  callBuilder: (BuildContext context, Api api) =>
+                      api.photos.getRandom(),
                   builder: (context, loading, photo) {
                     return Container(
                       alignment: Alignment.center,
@@ -65,7 +66,11 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
                 const SizedBox(height: 15),
                 Query<ExamplePhotoModel, Api>(
                   interval: const Duration(seconds: 10),
-                  callBuilder: (Api api) => api.photos.getRandom(),
+                  onComplete: (BuildContext context, ExamplePhotoModel photo) {
+                    print("COMPLETE: ${photo.author}");
+                  },
+                  callBuilder: (BuildContext context, Api api) =>
+                      api.photos.getRandom(),
                   builder: (context, loading, photo) {
                     return Container(
                       alignment: Alignment.center,

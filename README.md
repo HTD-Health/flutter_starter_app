@@ -303,15 +303,35 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
   @override
   Widget build(BuildContext context) {
     bool hasPhotot = _randomPhoto != null;
+
     /// Create [Query] widget and declare types for its
     /// `<TypeToBeReturnedFromCallBuilder, YouApiType>`
     return Query<ExamplePhotoModel, Api>(
+      
       /// [callBuilder] is responsible for getting data.
       /// You can also combine it with your BloC object
       /// to prevent api calls when data exists.
-      callBuilder: (Api api) => api.photos.getRandom(),
-      /// [value] will be [null] untill first value are returned from [callBuilder].
-      /// [loading] indicates whether [callBuilder] method is ongoing
+      callBuilder: (BuildContext context, Api api) => api.photos.getRandom(),
+
+      /// [onComplete] callback is called right after [callBuilder] with
+      /// the data returned from it.. 
+      /// [onComplete] method is called right before [builder] invocation.
+      /// It's a great place for BloC/cache data update.
+      onComplete: (BuildContext context, ExamplePhotoModel photo) {
+         /// Implementation ...
+      },
+
+      /// Data which will be passed as [value] argument to [builder] method
+      /// when [callBuilder] does not return the value yet.
+      initialData: myExamplePhotoModelInitialValue,
+
+      /// Specifying [interval] will cause the query to be
+      /// called periodically every [interval] of time.
+      interval: const Duration(seconds: 10),
+
+      /// [value] will be [null] or [initialData] (if argument provided) untill
+      /// first value are returned from [callBuilder].
+      /// [loading] indicates whether [callBuilder] method is ongoing.
       builder: (BuildContext context, bool loading, ExamplePhotoModel value) {
         return Center(
           /// Implementation ...

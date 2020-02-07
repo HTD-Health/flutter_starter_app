@@ -379,11 +379,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.0.1"
-      resolved-ref: cb6268822c5494106d4196d822f0c98bd7af9f97
+      ref: "v0.0.2"
+      resolved-ref: "99ac107d506805f4368c5c0aba500c15365bf777"
       url: "https://github.com/gonuit/flutter_restui.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.2"
   shelf:
     dependency: transitive
     description:
