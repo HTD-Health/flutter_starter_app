@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       child: RestuiProvider<Api>(
-        create: (_) => Api(
+        apiBuilder: (_) => Api(
           uri: Uri.parse("https://picsum.photos"),
           link: HeadersMapperLink(["uid", "client", "access-token"])
               .chain(DebugLink(printResponseBody: true)),

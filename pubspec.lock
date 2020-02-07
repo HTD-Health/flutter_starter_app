@@ -378,12 +378,10 @@ packages:
   restui:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "v0.0.2"
-      resolved-ref: "99ac107d506805f4368c5c0aba500c15365bf777"
-      url: "https://github.com/gonuit/flutter_restui.git"
-    source: git
-    version: "0.0.2"
+      name: restui
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+1"
   shelf:
     dependency: transitive
     description:
