@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/screens/bloc_example_screen/widgets/example_button/example_button.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,20 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Provider BloC example"),
+        title: Text(FlutterI18n.translate(
+          context,
+          "bloc_example_screen.title",
+        )),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(15),
         itemBuilder: (BuildContext context, int index) {
           final item = bloc.items[index];
           return ExampleButton(
-            label: "Click to delete",
+            label: FlutterI18n.translate(
+              context,
+              "bloc_example_screen.click_to_delete",
+            ),
             onPressed: () => bloc.removeAt(index),
             color: item.color,
           );

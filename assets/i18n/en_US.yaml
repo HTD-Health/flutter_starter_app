@@ -1,3 +1,10 @@
 home_screen:
   api_example: Api example
   bloc_example: Bloc example
+bloc_example_screen:
+  title: Provider BLoC example
+  click_to_delete: Click to delete
+api_example_screen:
+  title: Api example
+  fetched_only_once: This image is fetched only once and can be refetched by pressing FAB button
+  fetched_every_10s: This image is fetched every 10 seconds

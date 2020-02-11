@@ -1,3 +1,4 @@
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_starter_app/utils/api/api.dart';
 import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,10 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Api example"),
+        title: Text(FlutterI18n.translate(
+          context,
+          "api_example_screen.title",
+        )),
       ),
       body: SafeArea(
         child: ListView(
@@ -27,8 +31,10 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "This image is fetched only once "
-                  "and can be refetched by pressing FAB button:",
+                  FlutterI18n.translate(
+                    context,
+                    "api_example_screen.fetched_only_once",
+                  ),
                   style: Style.of(context).font.normal.copyWith(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
@@ -55,7 +61,10 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "This image is fetched every 10 seconds:",
+                  FlutterI18n.translate(
+                    context,
+                    "api_example_screen.fetched_every_10s",
+                  ),
                   style: Style.of(context).font.normal.copyWith(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
