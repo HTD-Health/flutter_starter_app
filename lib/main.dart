@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/utils/api/api.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,10 @@ import 'package:restui/restui.dart';
 import 'utils/navigation/generate_route.dart';
 import 'utils/style_provider/style_provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  return runApp(MyApp());
+}
 
 const _appColors = const AppColors(
   accent: Colors.redAccent,
