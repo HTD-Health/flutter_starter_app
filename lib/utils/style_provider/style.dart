@@ -56,7 +56,7 @@ class AppColors {
 }
 
 /// Provides app style
-class StyleProvider extends InheritedWidget {
+class Style extends InheritedWidget {
   /// Keeps app colors
   final AppColors colors;
 
@@ -80,7 +80,7 @@ class StyleProvider extends InheritedWidget {
   /// Keeps app fonts
   final _AppFonts font;
 
-  StyleProvider({
+  Style({
     Widget child,
     @required this.colors,
   })  : gradient = _AppGradients(colors),
@@ -94,6 +94,6 @@ class StyleProvider extends InheritedWidget {
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
-  static StyleProvider of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<StyleProvider>();
+  static Style of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<Style>();
 }

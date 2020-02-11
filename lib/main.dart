@@ -9,7 +9,7 @@ import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'utils/navigation/generate_route.dart';
-import 'utils/style_provider/style_provider.dart';
+import 'utils/style_provider/style.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           link: HeadersMapperLink(["uid", "client", "access-token"])
               .chain(DebugLink(printResponseBody: true)),
         ),
-        child: StyleProvider(
+        child: Style(
           child: MaterialApp(
             title: 'Eprufhealth',
             localizationsDelegates: <LocalizationsDelegate<dynamic>>[

@@ -1,4 +1,4 @@
-part of '../style_provider.dart';
+part of '../style.dart';
 
 class _AppGradients {
   LinearGradient primary;

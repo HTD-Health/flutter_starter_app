@@ -1,7 +1,7 @@
 import 'package:flutter_starter_app/utils/api/api.dart';
 import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
-import 'package:flutter_starter_app/utils/style_provider/style_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter_app/utils/style_provider/style.dart';
 import 'package:restui/restui.dart';
 
 class ApiExampleScreen extends StatefulWidget {
@@ -10,7 +10,8 @@ class ApiExampleScreen extends StatefulWidget {
 }
 
 class _ApiExampleScreenState extends State<ApiExampleScreen> {
-  final GlobalKey<QueryState<ExamplePhotoModel, Api>> _queryKey = GlobalKey();
+  final GlobalKey<QueryState<Api, ExamplePhotoModel, void>> _queryKey =
+      GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +27,16 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "This image is fetched only once"
-                  "can be refetched by pressing FAB button:",
-                  style: StyleProvider.of(context)
-                      .font
-                      .normal
-                      .copyWith(fontSize: 20),
+                  "This image is fetched only once "
+                  "and can be refetched by pressing FAB button:",
+                  style: Style.of(context).font.normal.copyWith(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 15),
-                Query<ExamplePhotoModel, Api>(
+                Query<Api, ExamplePhotoModel, void>(
                   key: _queryKey,
-                  callBuilder: (BuildContext context, Api api) =>
+                  variable: 2,
+                  callBuilder: (BuildContext context, Api api, _) =>
                       api.photos.getRandom(),
                   builder: (context, loading, photo) {
                     return Container(
@@ -57,19 +56,16 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
               children: <Widget>[
                 Text(
                   "This image is fetched every 10 seconds:",
-                  style: StyleProvider.of(context)
-                      .font
-                      .normal
-                      .copyWith(fontSize: 20),
+                  style: Style.of(context).font.normal.copyWith(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 15),
-                Query<ExamplePhotoModel, Api>(
+                Query<Api, ExamplePhotoModel, void>(
                   interval: const Duration(seconds: 10),
                   onComplete: (BuildContext context, ExamplePhotoModel photo) {
                     print("COMPLETE: ${photo.author}");
                   },
-                  callBuilder: (BuildContext context, Api api) =>
+                  callBuilder: (BuildContext context, Api api, _) =>
                       api.photos.getRandom(),
                   builder: (context, loading, photo) {
                     return Container(

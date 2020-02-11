@@ -13,6 +13,7 @@
       - [4.2. Run `flutter pub run build_runner build`](#42-run-flutter-pub-run-buildrunner-build)
       - [4.3. Thats all. To parse json:](#43-thats-all-to-parse-json)
   - [5. Api](#5-api)
+  - [6. TODO:](#6-todo)
 
 ## 1. Basic Commands
 - `flutter analyze` - linting
@@ -87,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ExampleBloc value,
         Widget child,
       ) {
-        return Container();
+        return Container(child: child);
       },
       // This part of tree will remain unchanged
       child: Container(),
@@ -200,4 +201,13 @@ ExamplePhotoModel photo = ExamplePhotoModel.fromJson(decodedJson);
 ## 5. Api
 This starter app uses a simple wrapper around dart `http` client library that adds the
 possibility to handle middlewares by `ApiLink`s (strongly inspired by apollo graphQL
-client links) and use `Query` widget to make API calls right from the widgets tree [[MORE](https://pub.dev/packages/restui).
+client links) and use `Query` widget to make API calls right from the widgets tree [[MORE](https://pub.dev/packages/restui)].
+
+
+## 6. TODO:
+- Kilka ekranów
+- Globalny config
+- Libka dla własnych komponentów
+- firebase
+- dev, staging, production, (yaml?, config.dart)
+- e2e (ze wstępną implementacją)
