@@ -5,13 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:restui/restui.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'utils/navigation/generate_route.dart';
 import 'utils/style_provider/style_provider.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  return runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (_) => runApp(MyApp()),
+  );
 }
 
 const _appColors = const AppColors(
@@ -53,6 +57,15 @@ class MyApp extends StatelessWidget {
         child: StyleProvider(
           child: MaterialApp(
             title: 'Eprufhealth',
+            localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+              FlutterI18nDelegate(
+                fallbackFile: 'en_US',
+                useCountryCode: true,
+                path: 'assets/i18n'
+              ),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate
+            ],
             theme: ThemeData(
               primarySwatch: _materialColor,
               accentColor: _appColors.accent,

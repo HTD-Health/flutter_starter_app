@@ -1,3 +1,4 @@
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_starter_app/utils/navigation/generate_route.dart';
 import 'package:flutter_starter_app/utils/style_provider/style_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class ExampleHomeScreen extends StatelessWidget {
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.apiExample),
               child: Text(
-                "Api Example",
+                FlutterI18n.translate(context, "home_screen.api_example"),
                 style: StyleProvider.of(context).font.normal,
               ),
             ),
@@ -28,7 +29,7 @@ class ExampleHomeScreen extends StatelessWidget {
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.blocExample),
               child: Text(
-                "Bloc Example",
+                FlutterI18n.translate(context, "home_screen.bloc_example"),
                 style: StyleProvider.of(context).font.normal,
               ),
             )
