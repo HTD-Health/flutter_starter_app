@@ -13,7 +13,7 @@
       - [4.2. Run `flutter pub run build_runner build`](#42-run-flutter-pub-run-buildrunner-build)
       - [4.3. Thats all. To parse json:](#43-thats-all-to-parse-json)
   - [5. Api](#5-api)
-  - [6. TODO:](#6-todo)
+  - [6. Firebase integration](#6-firebase-integration)
 
 ## 1. Basic Commands
 - `flutter analyze` - linting
@@ -203,11 +203,7 @@ This starter app uses a simple wrapper around dart `http` client library that ad
 possibility to handle middlewares by `ApiLink`s (strongly inspired by apollo graphQL
 client links) and use `Query` widget to make API calls right from the widgets tree [[MORE](https://pub.dev/packages/restui)].
 
-
-## 6. TODO:
-- Kilka ekranów
-- Globalny config
-- Libka dla własnych komponentów
-- firebase
-- dev, staging, production, (yaml?, config.dart)
-- e2e (ze wstępną implementacją)
+## 6. Firebase integration
+1. Create your firebase app [CLICK HERE](https://console.firebase.google.com/)
+2. Configure project [CLICK HERE](https://codelabs.developers.google.com/codelabs/flutter-firebase/#5)
+3. Add `google-service.json` file to your project.

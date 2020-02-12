@@ -16,6 +16,7 @@ class ExampleBloc extends ChangeNotifier {
   void addItem(Item item) {
     _items.add(item);
     notifyListeners();
+    throw Exception();
   }
 
   void removeAt(int index) {

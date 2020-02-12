@@ -48,6 +48,7 @@ flutter:
   # example:
   assets:
     - assets/i18n/en_US.yaml
+    - assets/config.yaml
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   # example:
