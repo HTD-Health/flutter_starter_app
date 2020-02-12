@@ -15,6 +15,7 @@ class ExampleHomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           children: <Widget>[
             RaisedButton(
+              key: const ValueKey<String>("homeSceenApiExampleButton"),
               color: Style.of(context).colors.accent,
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.apiExample),

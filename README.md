@@ -14,6 +14,7 @@
       - [4.3. Thats all. To parse json:](#43-thats-all-to-parse-json)
   - [5. Api](#5-api)
   - [6. Firebase integration](#6-firebase-integration)
+      - [6.1 Firebase performance example](#61-firebase-performance-example)
 
 ## 1. Basic Commands
 - `flutter analyze` - linting
@@ -21,7 +22,7 @@
 - `flutter format .` - format all files in current directory
 - `flutter pub global run devtools` (or `devtools`) - open dev tools
 - `flutter packages pub run build_runner build --delete-conflicting-outputs` - run build_runner to generate `*.g.dart` files (replace `build` with `watch` to build files in watch mode)
-- `flutter drive --target=<source_file>` - run e2e tests with flutter driver (optionally add `--no-build` flag to not rebuild source code if only tests changed)
+- `flutter drive --target=test_driver/app.dart` - run e2e tests with flutter driver (optionally add `--no-build` flag to not rebuild source code if only tests changed)
 
 
 ## 2. How to BloC with Provider
@@ -206,4 +207,21 @@ client links) and use `Query` widget to make API calls right from the widgets tr
 ## 6. Firebase integration
 1. Create your firebase app [CLICK HERE](https://console.firebase.google.com/)
 2. Configure project [CLICK HERE](https://codelabs.developers.google.com/codelabs/flutter-firebase/#5)
-3. Add `google-service.json` file to your project.
+3. Add `google-service.json` and `GoogleService-Info.plist` files to your project.
+- It is important to have the same app identifiers for both, firebase and flutter app: `com.example.myapp`
+
+#### 6.1 Firebase performance example
+You can measure your app performance in specific 
+```dart
+final Trace myTrace = FirebasePerformance.instance.newTrace("test_trace");
+myTrace.start();
+
+final Item item = cache.fetch("item");
+if (item != null) {
+  myTrace.incrementMetric("item_cache_hit", 1);
+} else {
+  myTrace.incrementMetric("item_cache_miss", 1);
+}
+
+myTrace.stop();
+```
