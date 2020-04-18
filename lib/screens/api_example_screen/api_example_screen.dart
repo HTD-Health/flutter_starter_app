@@ -1,9 +1,9 @@
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_starter_app/utils/api/api.dart';
-import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/utils/style_provider/style.dart';
-import 'package:restui/restui.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/api/api.dart';
+import '../../utils/api/models/example_photo_model.dart';
 
 class ApiExampleScreen extends StatefulWidget {
   @override
@@ -11,8 +11,30 @@ class ApiExampleScreen extends StatefulWidget {
 }
 
 class _ApiExampleScreenState extends State<ApiExampleScreen> {
-  final GlobalKey<QueryState<Api, ExamplePhotoModel, void>> _queryKey =
-      GlobalKey();
+  ExamplePhotoModel _currentPhoto;
+  bool _loading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_currentPhoto == null) _fetchPhoto();
+
+    super.didChangeDependencies();
+  }
+
+  Future<void> _fetchPhoto() async {
+    if (_loading) return;
+    setState(() {
+      _loading = true;
+    });
+
+    final api = Provider.of<Api>(context, listen: false);
+    final randomPhoto = await api.photos.getRandom();
+
+    setState(() {
+      _loading = false;
+      _currentPhoto = randomPhoto;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,74 +49,25 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  FlutterI18n.translate(
-                    context,
-                    "api_example_screen.fetched_only_once",
-                  ),
-                  style: Style.of(context).font.normal.copyWith(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 15),
-                Query<Api, ExamplePhotoModel, void>(
-                  key: _queryKey,
-                  variable: 2,
-                  callBuilder: (BuildContext context, Api api, _) =>
-                      api.photos.getRandom(),
-                  builder: (context, loading, photo) {
-                    return Container(
-                      alignment: Alignment.center,
-                      height: 200,
-                      child: photo == null || loading
-                          ? CircularProgressIndicator()
-                          : Image.network(photo.lowQualityImageUrl),
-                    );
-                  },
-                ),
-              ],
+            Container(
+              height: 300,
+              color: Colors.black12,
+              child: _currentPhoto != null && !_loading
+                  ? Image.network(
+                      _currentPhoto.downloadUrl,
+                      fit: BoxFit.cover,
+                    )
+                  : Center(child: CircularProgressIndicator()),
             ),
-            const SizedBox(height: 15),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  FlutterI18n.translate(
-                    context,
-                    "api_example_screen.fetched_every_10s",
-                  ),
-                  style: Style.of(context).font.normal.copyWith(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 15),
-                Query<Api, ExamplePhotoModel, void>(
-                  interval: const Duration(seconds: 10),
-                  onComplete: (BuildContext context, ExamplePhotoModel photo) {
-                    print("COMPLETE: ${photo.author}");
-                  },
-                  callBuilder: (BuildContext context, Api api, _) =>
-                      api.photos.getRandom(),
-                  builder: (context, loading, photo) {
-                    return Container(
-                      alignment: Alignment.center,
-                      height: 200,
-                      child: photo == null || loading
-                          ? CircularProgressIndicator()
-                          : Image.network(photo.lowQualityImageUrl),
-                    );
-                  },
-                ),
-              ],
-            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.refresh),
-        onPressed: () => _queryKey.currentState.call(),
-      ),
+      floatingActionButton: _loading
+          ? null
+          : FloatingActionButton(
+              child: Icon(Icons.refresh),
+              onPressed: _fetchPhoto,
+            ),
     );
   }
 }

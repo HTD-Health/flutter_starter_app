@@ -1,6 +1,6 @@
 # flutter_starter_app
 
-- [flutter_starter_app](#flutterstarterapp)
+- [flutter_starter_app](#FlutterStarter)
   - [1. Basic Commands](#1-basic-commands)
   - [2. How to BloC with Provider](#2-how-to-bloc-with-provider)
       - [2.1. Create BloC class](#21-create-bloc-class)
@@ -202,7 +202,7 @@ ExamplePhotoModel photo = ExamplePhotoModel.fromJson(decodedJson);
 ## 5. Api
 This starter app uses a simple wrapper around dart `http` client library that adds the
 possibility to handle middlewares by `ApiLink`s (strongly inspired by apollo graphQL
-client links) and use `Query` widget to make API calls right from the widgets tree [[MORE](https://pub.dev/packages/restui)].
+client links) [[MORE](https://pub.dev/packages/http_api)].
 
 ## 6. Firebase integration
 1. Create your firebase app [CLICK HERE](https://console.firebase.google.com/)
