@@ -20,7 +20,7 @@ class Routes {
       // case screenName:
       // return MaterialPageRoute(builder: (_) => MyScreen());
       default:
-        throw Exception("No route defined for \"${settings.name}\"");
+        throw Exception('No route defined for \"${settings.name}\"');
     }
   }
 }

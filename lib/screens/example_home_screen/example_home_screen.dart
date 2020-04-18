@@ -8,19 +8,19 @@ class ExampleHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Example home screen"),
+        title: const Text('Example home screen'),
       ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: <Widget>[
             RaisedButton(
-              key: const ValueKey<String>("homeSceenApiExampleButton"),
+              key: const ValueKey<String>('homeSceenApiExampleButton'),
               color: Style.of(context).colors.accent,
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.apiExample),
               child: Text(
-                FlutterI18n.translate(context, "home_screen.api_example"),
+                FlutterI18n.translate(context, 'home_screen.api_example'),
                 style: Style.of(context).font.normal,
               ),
             ),
@@ -30,7 +30,7 @@ class ExampleHomeScreen extends StatelessWidget {
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.blocExample),
               child: Text(
-                FlutterI18n.translate(context, "home_screen.bloc_example"),
+                FlutterI18n.translate(context, 'home_screen.bloc_example'),
                 style: Style.of(context).font.normal,
               ),
             )

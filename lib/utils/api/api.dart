@@ -25,7 +25,7 @@ class _PhotoQueries {
 
   Future<ExamplePhotoModel> getRandom() async {
     final response = await api.call(
-      endpoint: "/id/${Random().nextInt(50)}/info",
+      endpoint: '/id/${Random().nextInt(50)}/info',
       method: HttpMethod.get,
     );
     return ExamplePhotoModel.fromJson(json.decode(response.body));

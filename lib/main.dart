@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
 
             /// This headers will be retrived from response and send back
             /// with next request
-            link: HeadersMapperLink(["uid", "client", "access-token"])
+            link: HeadersMapperLink(['uid', 'client', 'access-token'])
 
                 /// Eesponsible for api request and response console prints
                 .chain(DebugLink(

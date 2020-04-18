@@ -23,7 +23,7 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
       appBar: AppBar(
         title: Text(FlutterI18n.translate(
           context,
-          "bloc_example_screen.title",
+          'bloc_example_screen.title',
         )),
       ),
       body: ListView.separated(
@@ -33,7 +33,7 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
           return ExampleButton(
             label: FlutterI18n.translate(
               context,
-              "bloc_example_screen.click_to_delete",
+              'bloc_example_screen.click_to_delete',
             ),
             onPressed: () => bloc.removeAt(index),
             color: item.color,
@@ -47,7 +47,7 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           FloatingActionButton(
-            heroTag: "FAB1",
+            heroTag: 'FAB1',
             onPressed: () => bloc.addItem(
               // Create new item with random color and add it to the BloC
               Item(Color(0xFF000000 + Random().nextInt(0xFFFFFFFF))),
@@ -57,7 +57,7 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
           const SizedBox(height: 10),
           FloatingActionButton(
             // Clear bloc data
-            heroTag: "FAB2",
+            heroTag: 'FAB2',
             onPressed: bloc.clear,
             backgroundColor: Style.of(context).colors.secondaryAccent,
             child: const Icon(Icons.delete),
