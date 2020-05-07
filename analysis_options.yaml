@@ -29,6 +29,7 @@ linter:
     - unnecessary_overrides
     - unnecessary_parenthesis
     - unnecessary_statements
+    - prefer_single_quotes
 
 analyzer:
   strong-mode:

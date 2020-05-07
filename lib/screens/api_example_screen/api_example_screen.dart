@@ -42,7 +42,7 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
       appBar: AppBar(
         title: Text(FlutterI18n.translate(
           context,
-          "api_example_screen.title",
+          'api_example_screen.title',
         )),
       ),
       body: SafeArea(

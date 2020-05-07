@@ -152,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
 - [unnecessary_overrides](https://dart-lang.github.io/linter/lints/unnecessary_overrides.html)
 - [unnecessary_parenthesis](https://dart-lang.github.io/linter/lints/unnecessary_parenthesis.html)
 - [unnecessary_statements](https://dart-lang.github.io/linter/lints/unnecessary_statements.html)
+- [prefer_single_quotes](https://dart-lang.github.io/linter/lints/prefer_single_quotes.html)
 
 ## 4. Json serialization
 
