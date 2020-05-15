@@ -31,6 +31,16 @@ class AppColors {
   final Color shadow;
   final Color secondaryShadow;
 
+  /// Create [MaterialColor] from color
+  MaterialColor getMaterialColorFrom(Color color) =>
+      MaterialColor(color.value, {
+        50: accent,
+        for (int i = 100; i <= 900; i += 100) i: accent,
+      });
+
+  /// Create primary swatch color based on accent color
+  MaterialColor get primarySwatch => getMaterialColorFrom(accent);
+
   /// Creates a copy of this [AppColors] but with the given
   /// fields replaced with the new values.
   AppColors copyWith(

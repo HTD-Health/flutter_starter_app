@@ -1,11 +1,8 @@
-import 'package:flutter_starter_app/main.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_driver/driver_extension.dart';
+import 'package:flutter_starter_app/config.dart';
+import 'package:flutter_starter_app/start_app.dart';
 
 void main() {
   enableFlutterDriverExtension();
-  return runApp(MyApp(
-    // without firebase analytics for testing
-    analytics: null,
-  ));
+  return startApp(AppConfig.development());
 }
