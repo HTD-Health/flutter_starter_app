@@ -8,3 +8,5 @@ api_example_screen:
   title: Api example
   fetched_only_once: This image is fetched only once and can be refetched by pressing FAB button
   fetched_every_10s: This image is fetched every 10 seconds
+firebase_example_screen:
+  title: Firebase example
