@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
@@ -26,15 +27,21 @@ class App extends StatelessWidget {
     return MultiProvider(
       child: Style(
         child: MaterialApp(
+          supportedLocales: const <Locale>[
+            Locale('en'),
+          ],
           title: 'FlutterStarter',
           localizationsDelegates: <LocalizationsDelegate<dynamic>>[
             FlutterI18nDelegate(
-              fallbackFile: 'en_US',
-              useCountryCode: true,
-              path: 'assets/i18n',
+              translationLoader: FileTranslationLoader(
+                fallbackFile: 'en',
+                useCountryCode: false,
+                basePath: 'assets/i18n',
+              ),
             ),
             GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
           ],
           theme: ThemeData(
             primarySwatch: config.colors.primarySwatch,
