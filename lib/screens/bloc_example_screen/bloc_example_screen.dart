@@ -59,7 +59,7 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
             // Clear bloc data
             heroTag: 'FAB2',
             onPressed: bloc.clear,
-            backgroundColor: Style.of(context).colors.secondaryAccent,
+            backgroundColor: Style.of(context).colors.accent2,
             child: const Icon(Icons.delete),
           ),
         ],
