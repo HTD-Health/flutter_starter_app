@@ -10,26 +10,26 @@ part './style/assets.dart';
 class AppColors {
   const AppColors({
     @required this.accent,
-    @required this.secondaryAccent,
+    @required this.accent2,
     @required this.content,
-    @required this.secondaryContent,
+    @required this.content2,
     @required this.background,
-    @required this.secondaryBackground,
+    @required this.background2,
     @required this.shadow,
-    @required this.secondaryShadow,
+    @required this.shadow2,
   });
 
   final Color accent;
-  final Color secondaryAccent;
+  final Color accent2;
 
   final Color content;
-  final Color secondaryContent;
+  final Color content2;
 
   final Color background;
-  final Color secondaryBackground;
+  final Color background2;
 
   final Color shadow;
-  final Color secondaryShadow;
+  final Color shadow2;
 
   /// Create [MaterialColor] from color
   MaterialColor getMaterialColorFrom(Color color) =>
@@ -45,23 +45,23 @@ class AppColors {
   /// fields replaced with the new values.
   AppColors copyWith(
     Color accent,
-    Color secondaryAccent,
+    Color accent2,
     Color content,
-    Color secondaryContent,
+    Color content2,
     Color background,
-    Color secondaryBackground,
+    Color backgrond2,
     Color shadow,
-    Color secondaryShadow,
+    Color shadow2,
   ) =>
       AppColors(
         accent: accent ?? this.accent,
-        secondaryAccent: secondaryAccent ?? this.secondaryAccent,
+        accent2: accent2 ?? this.accent2,
         content: content ?? this.content,
-        secondaryContent: secondaryContent ?? this.secondaryContent,
+        content2: content2 ?? this.content2,
         background: background ?? this.background,
-        secondaryBackground: secondaryBackground ?? this.secondaryBackground,
+        background2: backgrond2 ?? this.background2,
         shadow: shadow ?? this.shadow,
-        secondaryShadow: secondaryShadow ?? this.secondaryShadow,
+        shadow2: shadow2 ?? this.shadow2,
       );
 }
 

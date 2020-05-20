@@ -9,7 +9,7 @@ class _AppGradients {
           end: Alignment.bottomRight,
           colors: [
             colors.accent,
-            colors.secondaryAccent,
+            colors.accent2,
           ],
         );
 }

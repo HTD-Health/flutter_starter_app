@@ -23,13 +23,13 @@ class AppConfig extends Config {
           prefferedOrientations: const [DeviceOrientation.portraitUp],
           colors: const AppColors(
             accent: Colors.redAccent,
-            secondaryAccent: Colors.blueAccent,
+            accent2: Colors.blueAccent,
             content: Colors.black,
-            secondaryContent: Colors.white,
+            content2: Colors.white,
             background: Colors.white,
-            secondaryBackground: Colors.black,
+            background2: Colors.black,
             shadow: Color.fromRGBO(0, 0, 0, 0.1),
-            secondaryShadow: Color.fromRGBO(0, 0, 0, 0.05),
+            shadow2: Color.fromRGBO(0, 0, 0, 0.05),
           ),
         );
 
