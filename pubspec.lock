@@ -243,6 +243,24 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  htdc:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "0393bc91b01723f04d9fb94777c37c3516c62a8c"
+      url: "git://github.com/HealthTechDevelopers/flutter_commons.git"
+    source: git
+    version: "0.0.1"
+  htdc_fade_button:
+    dependency: transitive
+    description:
+      path: "widgets/fade_button"
+      ref: HEAD
+      resolved-ref: "0393bc91b01723f04d9fb94777c37c3516c62a8c"
+      url: "git://github.com/HealthTechDevelopers/flutter_commons.git"
+    source: git
+    version: "1.0.0"
   html:
     dependency: transitive
     description:

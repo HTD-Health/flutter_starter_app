@@ -21,6 +21,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  htdc:
+    git: git://github.com/HealthTechDevelopers/flutter_commons.git
   provider: 4.0.3
   json_annotation: 3.0.1
   cupertino_icons: 0.1.2
