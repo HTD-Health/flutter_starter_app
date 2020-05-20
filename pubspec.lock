@@ -189,7 +189,7 @@ packages:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2+5"
+    version: "0.1.3+3"
   fixnum:
     dependency: transitive
     description:
@@ -243,6 +243,24 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  htdc:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "0393bc91b01723f04d9fb94777c37c3516c62a8c"
+      url: "git://github.com/HealthTechDevelopers/flutter_commons.git"
+    source: git
+    version: "0.0.1"
+  htdc_fade_button:
+    dependency: transitive
+    description:
+      path: "widgets/fade_button"
+      ref: HEAD
+      resolved-ref: "0393bc91b01723f04d9fb94777c37c3516c62a8c"
+      url: "git://github.com/HealthTechDevelopers/flutter_commons.git"
+    source: git
+    version: "1.0.0"
   html:
     dependency: transitive
     description:
@@ -263,7 +281,7 @@ packages:
       name: http_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.1"
   http_multi_server:
     dependency: transitive
     description:
@@ -459,7 +477,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.3"
+    version: "4.1.2"
   pub_semver:
     dependency: transitive
     description:
@@ -690,5 +708,5 @@ packages:
     source: hosted
     version: "2.2.0"
 sdks:
-  dart: ">=2.6.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.4 <2.0.0"
+  dart: ">=2.7.0 <3.0.0"
+  flutter: ">=1.16.0 <2.0.0"
