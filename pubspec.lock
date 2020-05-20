@@ -281,7 +281,7 @@ packages:
       name: http_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.1"
   http_multi_server:
     dependency: transitive
     description:

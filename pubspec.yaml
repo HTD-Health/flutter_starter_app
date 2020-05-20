@@ -27,8 +27,7 @@ dependencies:
   json_annotation: 3.0.1
   cupertino_icons: 0.1.2
   firebase_analytics: 5.0.11
-  http_api: 0.3.0
-  # TODO
+  http_api: 0.4.1
   firebase_crashlytics: 0.1.2+5
   flutter_i18n: 0.15.0
 
