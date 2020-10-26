@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/config.dart';
 import 'package:flutter_starter_app/utils/api/api.dart';
+import 'package:flutter_starter_app/utils/api/links/auth_link.dart';
 import 'package:flutter_starter_app/utils/navigation/generate_route.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
 import 'package:http_api/http_api.dart';
@@ -64,9 +65,9 @@ class App extends StatelessWidget {
           create: (_) => Api(
             url: Uri.parse(config.apiUrl),
 
-            /// This headers will be retrived from response and send back
+            /// This header will be retrived from response and send back
             /// with next request
-            link: HeadersMapperLink(['uid', 'client', 'access-token'])
+            link: AuthLink('access-token')
 
                 /// Eesponsible for api request and response console prints
                 .chain(LoggerLink(
