@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http_api/http_api.dart';
 
-class Api extends BaseApi {
+class Api extends BaseApi with Cache {
   _PhotoQueries _photos;
   _PhotoQueries get photos => _photos;
 
@@ -17,16 +17,37 @@ class Api extends BaseApi {
   }) : super(url, defaultHeaders: defaultHeaders, link: link) {
     _photos = _PhotoQueries(this);
   }
+
+  /// Creates a cache menager that will cache requests and responses
+  /// in the memory.
+  @override
+  CacheManager createCacheManager() => InMemoryCache();
 }
 
 class _PhotoQueries {
   Api api;
   _PhotoQueries(this.api);
 
-  Future<ExamplePhotoModel> getRandom() async {
-    final response = await api.send(ApiRequest(
-      endpoint: '/id/${Random().nextInt(50)}/info',
+  Future<ExamplePhotoModel> getPhoto(int index) async {
+    /// Retrieve request from the cache if available otherwise from the network.
+    final response = await api.cacheIfAvailable(ApiRequest(
+      endpoint: '/id/${index}/info',
       method: HttpMethod.get,
+
+      /// The response will be cached under the following key.
+      key: CacheKey('getPhoto($index)'),
+    ));
+    return ExamplePhotoModel.fromJson(json.decode(response.body));
+  }
+
+  Future<ExamplePhotoModel> getRandom() async {
+    final index = Random().nextInt(50);
+    final response = await api.send(ApiRequest(
+      endpoint: '/id/${index}/info',
+      method: HttpMethod.get,
+
+      /// Cache response under the following key.
+      key: CacheKey('getPhoto($index)'),
     ));
     return ExamplePhotoModel.fromJson(json.decode(response.body));
   }
