@@ -69,7 +69,7 @@ class App extends StatelessWidget {
             link: HeadersMapperLink(['uid', 'client', 'access-token'])
 
                 /// Eesponsible for api request and response console prints
-                .chain(DebugLink(
+                .chain(LoggerLink(
                   url: true,
                   statusCode: true,
                   responseBody: true,

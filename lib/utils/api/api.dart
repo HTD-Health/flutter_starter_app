@@ -14,7 +14,7 @@ class Api extends BaseApi {
     ApiLink link,
     @required Uri url,
     Map<String, String> defaultHeaders,
-  }) : super(url: url, defaultHeaders: defaultHeaders, link: link) {
+  }) : super(url, defaultHeaders: defaultHeaders, link: link) {
     _photos = _PhotoQueries(this);
   }
 }
