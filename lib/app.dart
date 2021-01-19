@@ -10,12 +10,14 @@ import 'package:flutter_starter_app/utils/api/api.dart';
 import 'package:flutter_starter_app/utils/api/links/auth_link.dart';
 import 'package:flutter_starter_app/utils/navigation/generate_route.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http_api/http_api.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 class App extends StatelessWidget {
   final AppConfig config;
+
   final FirebaseAnalytics analytics;
 
   App({
@@ -25,64 +27,72 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = config.style.colors;
     return MultiProvider(
-      child: Style(
-        child: MaterialApp(
-          supportedLocales: const <Locale>[
-            Locale('en'),
-          ],
-          title: 'FlutterStarter',
-          localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-            FlutterI18nDelegate(
-              translationLoader: FileTranslationLoader(
-                fallbackFile: 'en',
-                useCountryCode: false,
-                basePath: 'assets/i18n',
-              ),
+      child: MaterialApp(
+        supportedLocales: const <Locale>[
+          Locale('en'),
+        ],
+        title: 'FlutterStarter',
+        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+          FlutterI18nDelegate(
+            translationLoader: FileTranslationLoader(
+              fallbackFile: 'en',
+              useCountryCode: false,
+              basePath: 'assets/i18n',
             ),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          theme: ThemeData(
-            primarySwatch: config.colors.primarySwatch,
-            accentColor: config.colors.accent,
-            appBarTheme: AppBarTheme(color: config.colors.accent),
-            backgroundColor: config.colors.background,
-            dialogBackgroundColor: config.colors.background,
-            scaffoldBackgroundColor: config.colors.background,
           ),
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
-          ],
-          onGenerateRoute: Routes.generateRoute,
-          initialRoute: Routes.home,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        theme: ThemeData(
+          /// Sets custom app font
+          textTheme: GoogleFonts.robotoTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          primarySwatch: colors.primarySwatch,
+          accentColor: colors.accent,
+          appBarTheme: AppBarTheme(color: colors.accent),
+          backgroundColor: colors.background,
+          dialogBackgroundColor: colors.background,
+          scaffoldBackgroundColor: colors.background,
         ),
-        colors: config.colors,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
+        onGenerateRoute: Routes.generateRoute,
+        initialRoute: Routes.home,
       ),
       providers: <SingleChildWidget>[
+        Provider<Style>.value(value: config.style),
         Provider(
           create: (_) => Api(
             url: Uri.parse(config.apiUrl),
 
             /// This header will be retrived from response and send back
             /// with next request
-            link: AuthLink('access-token')
+            link: AuthLink('Authorization')
 
-                /// Eesponsible for api request and response console prints
+                /// Responsible for api request and response prints
                 .chain(LoggerLink(
-                  url: true,
+                  endpoint: true,
+                  responseDuration: true,
+                  requestBody: true,
                   statusCode: true,
-                  responseBody: true,
                 ))
 
-                /// Lats link should be a [HttpLink]. It is responsible for
-                /// api requests
+                /// Links chain ends on [HttpLink]
+                /// which makes an HTTP request.
                 .chain(HttpLink()),
+            defaultHeaders: const <String, String>{
+              'organization_slug': 'silvercross',
+              'Content-Type': 'application/json',
+            },
           ),
         ),
 
-        /// Provide blocs that will be used for state management
+        /// Provide blocs that will be used for state management.
         ChangeNotifierProvider<ExampleBloc>(
           create: (_) => ExampleBloc(),
         ),

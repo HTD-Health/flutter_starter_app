@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
+import 'package:provider/provider.dart';
 
 class ExampleButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -28,13 +29,11 @@ class ExampleButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          border: Style.of(context).border.box.primary,
+          border: context.watch<Style>().borders.box.primary,
         ),
         child: Text(
           label,
-          style: Style.of(context).font.normal.copyWith(
-                color: fontColor,
-              ),
+          style: context.watch<Style>().fonts.normal.copyWith(color: fontColor),
         ),
       ),
     );

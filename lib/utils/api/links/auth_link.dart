@@ -1,34 +1,34 @@
 import 'package:http_api/http_api.dart';
 
+/// Provides received [headerName] header with next requests.
 class AuthLink extends ApiLink {
-  final bool canUpdateToken;
-  final String authHeaderName;
-  String authToken;
+  final bool canUpdateHeader;
+  final String headerName;
+  String value;
 
-  AuthLink(this.authHeaderName, {String token, this.canUpdateToken = true}) {
-    authToken ??= token;
+  AuthLink(this.headerName, {this.value, this.canUpdateHeader = true});
+
+  /// Remove value
+  void clear() {
+    value = null;
   }
 
-  void removeSession() {
-    authToken = null;
-  }
-
-  Future<void> _setHeader(Map<String, String> headers) async {
+  Future<void> _setValueFromResponseHeaders(Map<String, String> headers) async {
     if (headers == null) return;
-    final value = headers[authHeaderName];
-    if (value == null) return;
-    authToken = value;
+    final headerValue = headers[headerName];
+    if (headerValue == null) return;
+    value = headerValue;
   }
 
   @override
-  Future<ApiResponse> next(ApiRequest request) async {
-    if (authToken != null) request.headers[authHeaderName] = authToken;
+  Future<Response> next(Request request) async {
+    if (value != null) request.headers[headerName] = value;
 
-    ApiResponse response = await super.next(request);
-    if (canUpdateToken) _setHeader(response.headers);
+    final Response response = await super.next(request);
+    if (canUpdateHeader) _setValueFromResponseHeaders(response.headers);
     return response;
   }
 
   @override
-  String toString() => '$runtimeType(${authToken})';
+  String toString() => '$runtimeType(${value})';
 }

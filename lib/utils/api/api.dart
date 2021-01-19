@@ -30,21 +30,21 @@ class _PhotoQueries {
 
   Future<ExamplePhotoModel> getPhoto(int index) async {
     /// Retrieve request from the cache if available otherwise from the network.
-    final response = await api.cacheIfAvailable(ApiRequest(
-      endpoint: '/id/${index}/info',
-      method: HttpMethod.get,
+    final response = await api.cacheIfAvailable(
+      Request(
+        endpoint: '/id/${index}/info',
 
-      /// The response will be cached under the following key.
-      key: CacheKey('getPhoto($index)'),
-    ));
+        /// The response will be cached under the following key.
+        key: CacheKey('getPhoto($index)'),
+      ),
+    );
     return ExamplePhotoModel.fromJson(json.decode(response.body));
   }
 
   Future<ExamplePhotoModel> getRandom() async {
     final index = Random().nextInt(50);
-    final response = await api.send(ApiRequest(
+    final response = await api.send(Request(
       endpoint: '/id/${index}/info',
-      method: HttpMethod.get,
 
       /// Cache response under the following key.
       key: CacheKey('getPhoto($index)'),
