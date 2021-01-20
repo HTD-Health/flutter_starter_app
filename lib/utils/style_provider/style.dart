@@ -29,7 +29,6 @@ class Style {
   final _AppFonts fonts;
 
   Style({
-    Widget child,
     @required this.colors,
   })  : borders = _AppBorders(colors),
         fonts = _AppFonts(colors),

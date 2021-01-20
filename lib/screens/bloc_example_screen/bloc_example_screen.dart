@@ -17,7 +17,7 @@ class _BlocExampleScreenState extends State<BlocExampleScreen> {
   Widget build(BuildContext context) {
     /// To improve performance try using Consumer or/and Selector widget
     /// More info in `README` file
-    ExampleBloc bloc = Provider.of<ExampleBloc>(context);
+    final bloc = Provider.of<ExampleBloc>(context);
 
     return Scaffold(
       appBar: AppBar(

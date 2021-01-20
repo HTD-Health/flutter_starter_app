@@ -18,7 +18,7 @@ class App extends StatelessWidget {
 
   final FirebaseAnalytics analytics;
 
-  App({
+  const App({
     @required this.analytics,
     @required this.config,
   });

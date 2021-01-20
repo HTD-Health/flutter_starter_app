@@ -57,7 +57,7 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
                       _currentPhoto.downloadUrl,
                       fit: BoxFit.cover,
                     )
-                  : Center(child: CircularProgressIndicator()),
+                  : const Center(child: CircularProgressIndicator()),
             ),
           ],
         ),
@@ -65,7 +65,7 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
       floatingActionButton: _loading
           ? null
           : FloatingActionButton(
-              child: Icon(Icons.refresh),
+              child: const Icon(Icons.refresh),
               onPressed: _fetchPhoto,
             ),
     );

@@ -6,6 +6,7 @@ import 'package:flutter_starter_app/utils/style_provider/style.dart';
 import 'package:provider/provider.dart';
 
 class ControllerExampleScreen extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     final style = context.watch<Style>();
     return Controlled<CounterScreenController>(

@@ -3,13 +3,11 @@ import 'package:test/test.dart';
 
 import 'tests/home_screen_test.dart';
 
-void main() async {
-  FlutterDriver driver = await FlutterDriver.connect();
+Future<void> main() async {
+  final driver = await FlutterDriver.connect();
 
   homeScreenTest(driver);
 
   // Closing app after tests
-  tearDownAll(() {
-    driver.close();
-  });
+  tearDownAll(driver.close);
 }
