@@ -1,54 +1,40 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http_api/http_api.dart';
 
-class Api extends BaseApi with Cache {
+class Api {
+  Dio client;
   _PhotoQueries _photos;
   _PhotoQueries get photos => _photos;
 
   Api({
-    ApiLink link,
     @required Uri url,
     Map<String, String> defaultHeaders,
-  }) : super(url, defaultHeaders: defaultHeaders, link: link) {
-    _photos = _PhotoQueries(this);
+  }) : client = Dio(
+          BaseOptions(
+            baseUrl: url.toString(),
+            connectTimeout: 5000,
+            receiveTimeout: 3000,
+            headers: defaultHeaders,
+          ),
+        ) {
+    _photos = _PhotoQueries(client);
   }
-
-  /// Creates a cache menager that will cache requests and responses
-  /// in the memory.
-  @override
-  CacheManager createCacheManager() => InMemoryCache();
 }
 
 class _PhotoQueries {
-  Api api;
-  _PhotoQueries(this.api);
-
-  Future<ExamplePhotoModel> getPhoto(int index) async {
-    /// Retrieve request from the cache if available otherwise from the network.
-    final response = await api.cacheIfAvailable(
-      Request(
-        endpoint: '/id/${index}/info',
-
-        /// The response will be cached under the following key.
-        key: CacheKey('getPhoto($index)'),
-      ),
-    );
-    return ExamplePhotoModel.fromJson(json.decode(response.body));
-  }
+  Dio client;
+  _PhotoQueries(this.client);
 
   Future<ExamplePhotoModel> getRandom() async {
     final index = Random().nextInt(50);
-    final response = await api.get(
+    final response = await client.get<dynamic>(
       '/id/${index}/info',
-
-      /// Cache response under the following key.
-      key: CacheKey('getPhoto($index)'),
     );
-    return ExamplePhotoModel.fromJson(json.decode(response.body));
+    return ExamplePhotoModel.fromJson(response.data);
   }
 }

@@ -7,11 +7,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/config.dart';
 import 'package:flutter_starter_app/utils/api/api.dart';
-import 'package:flutter_starter_app/utils/api/links/auth_link.dart';
 import 'package:flutter_starter_app/utils/navigation/generate_route.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http_api/http_api.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -69,26 +67,6 @@ class App extends StatelessWidget {
         Provider(
           create: (_) => Api(
             url: Uri.parse(config.apiUrl),
-
-            /// This header will be retrived from response and send back
-            /// with next request
-            link: AuthLink('Authorization')
-
-                /// Responsible for api request and response prints
-                .chain(LoggerLink(
-                  endpoint: true,
-                  responseDuration: true,
-                  requestBody: true,
-                  statusCode: true,
-                ))
-
-                /// Links chain ends on [HttpLink]
-                /// which makes an HTTP request.
-                .chain(HttpLink()),
-            defaultHeaders: const <String, String>{
-              'organization_slug': 'silvercross',
-              'Content-Type': 'application/json',
-            },
           ),
         ),
 
