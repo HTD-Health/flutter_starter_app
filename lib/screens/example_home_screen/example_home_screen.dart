@@ -36,6 +36,19 @@ class ExampleHomeScreen extends StatelessWidget {
                 FlutterI18n.translate(context, 'home_screen.bloc_example'),
                 style: style.fonts.normal,
               ),
+            ),
+            const SizedBox(height: 15),
+            RaisedButton(
+              color: style.colors.accent,
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(Routes.controllerExample),
+              child: Text(
+                FlutterI18n.translate(
+                  context,
+                  'home_screen.controller_example',
+                ),
+                style: style.fonts.normal,
+              ),
             )
           ],
         ),

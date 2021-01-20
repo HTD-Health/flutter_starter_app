@@ -43,12 +43,12 @@ class _PhotoQueries {
 
   Future<ExamplePhotoModel> getRandom() async {
     final index = Random().nextInt(50);
-    final response = await api.send(Request(
-      endpoint: '/id/${index}/info',
+    final response = await api.get(
+      '/id/${index}/info',
 
       /// Cache response under the following key.
       key: CacheKey('getPhoto($index)'),
-    ));
+    );
     return ExamplePhotoModel.fromJson(json.decode(response.body));
   }
 }
