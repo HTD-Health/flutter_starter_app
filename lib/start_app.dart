@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -31,10 +32,12 @@ void startApp(Config config) {
       final analytics = FirebaseAnalytics();
 
       // Whether to send reports during development
-      Crashlytics.instance.enableInDevMode = false;
+      if (kDebugMode) {
+        FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+      }
 
       // It automatically prints errors to the console
-      FlutterError.onError = Crashlytics.instance.recordFlutterError;
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
       runApp(App(
         analytics: analytics,

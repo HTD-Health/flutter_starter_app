@@ -17,9 +17,8 @@ class ExampleHomeScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               key: const ValueKey<String>('homeSceenApiExampleButton'),
-              color: style.colors.accent,
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.apiExample),
               child: Text(
@@ -28,8 +27,7 @@ class ExampleHomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            RaisedButton(
-              color: style.colors.accent,
+            ElevatedButton(
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.blocExample),
               child: Text(
@@ -38,8 +36,7 @@ class ExampleHomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            RaisedButton(
-              color: style.colors.accent,
+            ElevatedButton(
               onPressed: () =>
                   Navigator.of(context).pushNamed(Routes.controllerExample),
               child: Text(
