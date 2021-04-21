@@ -9,7 +9,6 @@ import 'package:flutter_starter_app/config.dart';
 import 'package:flutter_starter_app/utils/api/api.dart';
 import 'package:flutter_starter_app/utils/navigation/generate_route.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -46,9 +45,10 @@ class App extends StatelessWidget {
         ],
         theme: ThemeData(
           /// Sets custom app font
-          textTheme: GoogleFonts.robotoTextTheme(
-            Theme.of(context).textTheme,
-          ),
+          // TODO: Enable when GoogleFonts fix dependency issues
+          // textTheme: GoogleFonts.robotoTextTheme(
+          //   Theme.of(context).textTheme,
+          // ),
           primarySwatch: colors.primarySwatch,
           accentColor: colors.accent,
           appBarTheme: AppBarTheme(color: colors.accent),
