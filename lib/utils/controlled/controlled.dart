@@ -1,51 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+part 'controller.dart';
 
-typedef ControllerBuilder<T extends ChangeNotifier> = T Function(
+typedef ControllerBuilder<T extends ControllerCore> = T Function(
     BuildContext context);
-typedef ControlledWidgetBuilder<T extends ChangeNotifier> = Widget Function(
+typedef ControlledWidgetBuilder<T extends ControllerCore> = Widget Function(
     BuildContext context, T controller);
 
-class Controlled<T extends ChangeNotifier> extends StatefulWidget {
-  final T controller;
-  final ControllerBuilder<T> create;
+class Controlled<T extends ControllerCore> extends StatefulWidget {
+  final ControllerBuilder<T>? create;
+  final T? controller;
   final ControlledWidgetBuilder<T> builder;
 
-  const Controlled.value({
-    Key key,
-    @required this.controller,
-    @required this.builder,
-  })  : create = null,
-        assert(controller != null, 'controller cannot be null'),
-        assert(builder != null, 'builder cannot be null'),
-        super(key: key);
+  /// When `true`, controlled widget will not rebuilt children
+  /// on [Controller.update] method invocation.
+  final bool update;
+
+  /// If provide equals `true`, controller will be provided
+  /// by [ChangeNotifierProvider].
+  final bool provide;
 
   const Controlled({
-    Key key,
-    this.create,
-    @required this.builder,
+    Key? key,
+    required this.create,
+    required this.builder,
+    this.update = true,
+    this.provide = false,
   })  : controller = null,
-        assert(create != null, 'create cannot be null'),
-        assert(builder != null, 'builder cannot be null'),
+        super(key: key);
+
+  const Controlled.value({
+    Key? key,
+    required this.controller,
+    required this.builder,
+    this.update = true,
+    this.provide = false,
+  })  : create = null,
+        assert(controller != null, 'controller cannot be null'),
         super(key: key);
 
   @override
   _ControlledState<T> createState() => _ControlledState<T>();
 }
 
-class _ControlledState<T extends ChangeNotifier> extends State<Controlled<T>> {
-  T _controller;
+class _ControlledState<T extends ControllerCore> extends State<Controlled<T>> {
+  T? _controller;
+  late bool _valueControlled;
 
   @override
   void didChangeDependencies() {
     /// Called only before first build
     if (_controller == null) {
-      if (widget.controller != null) {
-        _listen(widget.controller);
-      } else {
-        _listen(widget.create(context));
-      }
-    }
+      _valueControlled = widget.controller != null;
+      _controller =
+          _valueControlled ? widget.controller : widget.create!(context);
 
+      if (!_controller!.initialized) {
+        /// initialize controller
+        _controller!
+          ..context = context
+          ..init()
+          ..didChangeDependencies(context);
+      }
+
+      if (!widget.provide && widget.update) {
+        _listen(_controller!);
+      }
+    } else {
+      _controller!.didChangeDependencies(context);
+    }
     super.didChangeDependencies();
   }
 
@@ -55,29 +78,56 @@ class _ControlledState<T extends ChangeNotifier> extends State<Controlled<T>> {
 
   void _listen(T controller) {
     ArgumentError.checkNotNull(controller, 'controller');
-    if (_controller == controller) {
-      throw ArgumentError.value(
-        controller,
-        'controller',
-        'Already listening to controller.',
-      );
-    }
 
-    _controller = controller..addListener(_onChange);
+    controller.addListener(_onChange);
   }
 
-  void _onChange() => setState(() {});
+  void _onChange() {
+    if (!mounted) return;
+
+    setState(() {});
+  }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, _controller);
+  Widget build(BuildContext context) {
+    if (!_controller!.initialized) {
+      throw StateError(
+        'Controller (${_controller.runtimeType}) was '
+        'not properly initialized. Did you forget to call'
+        'super.init() method? Also, make sure that controlers\''
+        'init method is NOT asynchronous.',
+      );
+    }
+    _controller!.context = context;
+
+    if (widget.provide == true) {
+      return ChangeNotifierProvider<T>.value(
+        value: _controller!,
+        child: widget.update
+
+            /// Consume controller to rebuilt widgets on every update callback
+            ? Consumer<T>(
+                builder: (context, controller, _) =>
+                    widget.builder(context, controller),
+              )
+
+            /// Only provide controller without updating widgets
+            : widget.builder(context, _controller!),
+      );
+    } else {
+      return widget.builder(context, _controller!);
+    }
+  }
 
   @override
   void dispose() {
+    _unlisten();
+
     /// dispose controller only if it was created by this widget
-    if (widget.create != null) {
-      _unlisten();
-      _controller.dispose();
+    if (!_valueControlled) {
+      _controller!.dispose();
     }
+
     super.dispose();
   }
 }

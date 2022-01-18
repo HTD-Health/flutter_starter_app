@@ -1,18 +1,16 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
 
 class Api {
   Dio client;
-  _PhotoQueries _photos;
-  _PhotoQueries get photos => _photos;
+  _PhotoQueries? _photos;
+  _PhotoQueries? get photos => _photos;
 
   Api({
-    @required Uri url,
-    Map<String, String> defaultHeaders,
+    required Uri url,
+    Map<String, String>? defaultHeaders,
   }) : client = Dio(
           BaseOptions(
             baseUrl: url.toString(),

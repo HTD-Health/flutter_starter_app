@@ -3,14 +3,14 @@ part of '../style.dart';
 /// Provides colors that are used to create app style by style provider
 class AppColors {
   const AppColors({
-    @required this.accent,
-    @required this.accent2,
-    @required this.content,
-    @required this.content2,
-    @required this.background,
-    @required this.background2,
-    @required this.shadow,
-    @required this.shadow2,
+    required this.accent,
+    required this.accent2,
+    required this.content,
+    required this.content2,
+    required this.background,
+    required this.background2,
+    required this.shadow,
+    required this.shadow2,
   });
 
   final Color accent;
@@ -48,13 +48,13 @@ class AppColors {
     Color shadow2,
   ) =>
       AppColors(
-        accent: accent ?? this.accent,
-        accent2: accent2 ?? this.accent2,
-        content: content ?? this.content,
-        content2: content2 ?? this.content2,
-        background: background ?? this.background,
-        background2: backgrond2 ?? this.background2,
-        shadow: shadow ?? this.shadow,
-        shadow2: shadow2 ?? this.shadow2,
+        accent: accent,
+        accent2: accent2,
+        content: content,
+        content2: content2,
+        background: background,
+        background2: backgrond2,
+        shadow: shadow,
+        shadow2: shadow2,
       );
 }

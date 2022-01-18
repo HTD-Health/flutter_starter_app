@@ -29,7 +29,7 @@ class Style {
   final _AppFonts fonts;
 
   Style({
-    @required this.colors,
+    required this.colors,
   })  : borders = _AppBorders(colors),
         fonts = _AppFonts(colors),
         shadows = _AppShadows(colors),

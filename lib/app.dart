@@ -1,4 +1,5 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
+/// TODO: Enable after configure Firebase project
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,11 +14,11 @@ import 'package:provider/single_child_widget.dart';
 class App extends StatelessWidget {
   final AppConfig config;
 
-  final FirebaseAnalytics analytics;
+  // final FirebaseAnalytics analytics;
 
   const App({
-    @required this.analytics,
-    @required this.config,
+    // required this.analytics,
+    required this.config,
   });
 
   @override
@@ -53,9 +54,11 @@ class App extends StatelessWidget {
           dialogBackgroundColor: colors.background,
           scaffoldBackgroundColor: colors.background,
         ),
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
+
+        /// TODO: Enable after configure Firebase project
+        // navigatorObservers: [
+        //   FirebaseAnalyticsObserver(analytics: analytics),
+        // ],
         onGenerateRoute: Routes.generateRoute,
         initialRoute: Routes.home,
       ),

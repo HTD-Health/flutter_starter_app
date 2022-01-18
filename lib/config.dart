@@ -8,9 +8,9 @@ abstract class Config {
   final Style style;
 
   const Config({
-    @required this.prefferedOrientations,
-    @required this.style,
-  }) : assert(style != null, 'style cannot be null');
+    required this.prefferedOrientations,
+    required this.style,
+  });
 }
 
 /// Implement your config based on Config class
