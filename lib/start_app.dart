@@ -35,11 +35,11 @@ void startApp(Config config) {
 
       // Whether to send reports during development
       if (kDebugMode) {
-        FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+        // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
       }
 
       // It automatically prints errors to the console
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+      // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
       runApp(App(
         // analytics: analytics,
