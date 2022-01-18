@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_starter_app/screens/api_example_screen/api_example_screen.dart';
 import 'package:flutter_starter_app/screens/bloc_example_screen/bloc_example_screen.dart';
 import 'package:flutter_starter_app/screens/controller_example_screen/controller_example_screen.dart';
 import 'package:flutter_starter_app/screens/example_home_screen/example_home_screen.dart';
-import 'package:flutter/material.dart';
 
 class Routes {
   static const home = '/';

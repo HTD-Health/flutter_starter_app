@@ -1,4 +1,5 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
+/// TODO: Enable after configure Firebase project
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -28,20 +29,21 @@ void startApp(Config config) {
   /// App supported orientations init
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
-      // Firebase analystics setup
-      final analytics = FirebaseAnalytics();
+      /// Firebase analystics setup
+      /// TODO: Enable after configure Firebase project
+      // final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
       // Whether to send reports during development
       if (kDebugMode) {
-        FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+        // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
       }
 
       // It automatically prints errors to the console
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+      // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
       runApp(App(
-        analytics: analytics,
-        config: config,
+        // analytics: analytics,
+        config: config as AppConfig,
       ));
     },
   );

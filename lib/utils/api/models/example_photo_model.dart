@@ -4,16 +4,16 @@ part 'example_photo_model.g.dart';
 
 @JsonSerializable(checked: true)
 class ExamplePhotoModel {
-  final String id;
-  final String author;
-  final int width;
-  final int height;
-  final String url;
+  final String? id;
+  final String? author;
+  final int? width;
+  final int? height;
+  final String? url;
   @JsonKey(name: 'download_url')
-  final String downloadUrl;
+  final String? downloadUrl;
 
   String get lowQualityImageUrl {
-    final uri = Uri.parse(downloadUrl);
+    final uri = Uri.parse(downloadUrl!);
     final newUri = uri.replace(
       pathSegments: uri.pathSegments.sublist(0, uri.pathSegments.length - 2)
         ..add('400'),

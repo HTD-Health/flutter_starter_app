@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_starter_app/utils/navigation/generate_route.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ExampleHomeScreen extends StatelessWidget {

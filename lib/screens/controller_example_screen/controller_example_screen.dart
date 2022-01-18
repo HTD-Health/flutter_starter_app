@@ -1,5 +1,5 @@
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_starter_app/screens/controller_example_screen/controller.dart';
 import 'package:flutter_starter_app/utils/controlled/controlled.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';

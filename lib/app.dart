@@ -1,8 +1,7 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+/// TODO: Enable after configure Firebase project
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/config.dart';
@@ -15,11 +14,11 @@ import 'package:provider/single_child_widget.dart';
 class App extends StatelessWidget {
   final AppConfig config;
 
-  final FirebaseAnalytics analytics;
+  // final FirebaseAnalytics analytics;
 
   const App({
-    @required this.analytics,
-    @required this.config,
+    // required this.analytics,
+    required this.config,
   });
 
   @override
@@ -50,15 +49,16 @@ class App extends StatelessWidget {
           //   Theme.of(context).textTheme,
           // ),
           primarySwatch: colors.primarySwatch,
-          accentColor: colors.accent,
           appBarTheme: AppBarTheme(color: colors.accent),
           backgroundColor: colors.background,
           dialogBackgroundColor: colors.background,
           scaffoldBackgroundColor: colors.background,
         ),
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
+
+        /// TODO: Enable after configure Firebase project
+        // navigatorObservers: [
+        //   FirebaseAnalyticsObserver(analytics: analytics),
+        // ],
         onGenerateRoute: Routes.generateRoute,
         initialRoute: Routes.home,
       ),

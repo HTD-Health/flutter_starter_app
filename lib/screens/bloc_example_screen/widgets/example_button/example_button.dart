@@ -8,13 +8,10 @@ class ExampleButton extends StatelessWidget {
   final String label;
 
   const ExampleButton({
-    @required this.onPressed,
-    @required this.color,
-    @required this.label,
-  }) : assert(
-          color != null && label != null,
-          'Color and label cannot be null.',
-        );
+    required this.onPressed,
+    required this.color,
+    required this.label,
+  });
 
   Color get fontColor =>
       (color.red * 0.299 + color.green * 0.587 + color.blue * 0.114) > 186

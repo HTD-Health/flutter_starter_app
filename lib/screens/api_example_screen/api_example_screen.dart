@@ -1,5 +1,5 @@
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/api/api.dart';
@@ -11,7 +11,7 @@ class ApiExampleScreen extends StatefulWidget {
 }
 
 class _ApiExampleScreenState extends State<ApiExampleScreen> {
-  ExamplePhotoModel _currentPhoto;
+  ExamplePhotoModel? _currentPhoto;
   bool _loading = false;
 
   @override
@@ -28,7 +28,7 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
     });
 
     final api = Provider.of<Api>(context, listen: false);
-    final randomPhoto = await api.photos.getRandom();
+    final randomPhoto = await api.photos!.getRandom();
 
     setState(() {
       _loading = false;
@@ -54,7 +54,7 @@ class _ApiExampleScreenState extends State<ApiExampleScreen> {
               color: Colors.black12,
               child: _currentPhoto != null && !_loading
                   ? Image.network(
-                      _currentPhoto.downloadUrl,
+                      _currentPhoto!.downloadUrl!,
                       fit: BoxFit.cover,
                     )
                   : const Center(child: CircularProgressIndicator()),

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_starter_app/utils/controlled/controlled.dart';
 
-class CounterScreenController extends ChangeNotifier {
+class CounterScreenController extends Controller {
   final int initialValue;
 
   int _value;
@@ -11,18 +11,18 @@ class CounterScreenController extends ChangeNotifier {
   void increment() {
     _value++;
 
-    notifyListeners();
+    update();
   }
 
   void decrement() {
     _value--;
 
-    notifyListeners();
+    update();
   }
 
   void reset() {
     _value = initialValue;
 
-    notifyListeners();
+    update();
   }
 }
