@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/screens/bloc_example_screen/widgets/example_button/example_button.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_starter_app/utils/style_provider/style.dart';
 import 'package:provider/provider.dart';
 

@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_starter_app/utils/api/models/example_photo_model.dart';
 
 class Api {
   Dio client;

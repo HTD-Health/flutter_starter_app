@@ -29,7 +29,7 @@ void startApp(Config config) {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
       // Firebase analystics setup
-      final analytics = FirebaseAnalytics();
+      final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
       // Whether to send reports during development
       if (kDebugMode) {

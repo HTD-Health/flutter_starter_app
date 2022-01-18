@@ -1,8 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_starter_app/bloc/example_bloc.dart';
 import 'package:flutter_starter_app/config.dart';
@@ -50,7 +48,6 @@ class App extends StatelessWidget {
           //   Theme.of(context).textTheme,
           // ),
           primarySwatch: colors.primarySwatch,
-          accentColor: colors.accent,
           appBarTheme: AppBarTheme(color: colors.accent),
           backgroundColor: colors.background,
           dialogBackgroundColor: colors.background,
